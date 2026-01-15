@@ -25,4 +25,5 @@ require("lazy").setup({
   { import = "plugins.git" },        -- Git integration: gitsigns
   { import = "plugins.lsp" },        -- LSP configuration for TypeScript and Rust
   { import = "plugins.completion" }, -- Completion engine: nvim-cmp
+  { import = "plugins.formatting" }, -- Code formatting: Prettier via conform.nvim
 })
