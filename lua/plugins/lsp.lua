@@ -1,6 +1,6 @@
 -- ============================================================================
 -- plugins/lsp.lua - Language Server Protocol configuration
--- TypeScript/JavaScript and Rust language servers
+-- TypeScript/JavaScript, C/C++, and Rust language servers
 -- ============================================================================
 
 return {
@@ -52,6 +52,17 @@ return {
 
       -- Enable TypeScript LSP
       vim.lsp.enable('ts_ls')
+
+      -- C/C++ LSP setup using clangd
+      vim.lsp.config('clangd', {
+        cmd = { 'clangd', '--background-index', '--clang-tidy', '--header-insertion=iwyu' },
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+        root_markers = { 'compile_commands.json', 'compile_flags.txt', '.git' },
+        capabilities = capabilities,
+      })
+
+      -- Enable clangd LSP
+      vim.lsp.enable('clangd')
 
       -- Key mappings for LSP (applied when LSP attaches to buffer)
       vim.api.nvim_create_autocmd('LspAttach', {
