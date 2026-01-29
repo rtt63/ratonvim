@@ -40,23 +40,35 @@ return {
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter").setup({
-        ensure_install = {
-          "typescript",
-          "tsx",
-          "javascript",
-          "lua",
-          "vim",
-          "vimdoc",
-          "html",
-          "css",
-          "json",
-          "markdown",
-          "c",
-          "cpp",
-          "rust",
-        },
+      local ts = require("nvim-treesitter")
+      ts.setup()
+
+      -- Install parsers
+      ts.install({
+        "typescript",
+        "tsx",
+        "javascript",
+        "lua",
+        "vim",
+        "vimdoc",
+        "html",
+        "css",
+        "json",
+        "markdown",
+        "c",
+        "cpp",
+        "rust",
       })
+
+      -- Enable treesitter highlighting for all filetypes
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
+
+      -- Start highlighting for current buffer
+      pcall(vim.treesitter.start)
     end,
   },
 }
