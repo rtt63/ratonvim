@@ -37,7 +37,7 @@ return {
   -- Treesitter - Better syntax highlighting
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
+    lazy = false,
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter").setup({
