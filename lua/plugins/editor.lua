@@ -66,6 +66,8 @@ return {
           enable = true,
         },
       })
+      -- Re-trigger FileType for buffers opened before treesitter loaded
+      vim.cmd("doautoall FileType")
     end,
   },
 }
