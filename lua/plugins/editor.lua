@@ -20,7 +20,7 @@ return {
   -- Commentary - Toggle comments with gcc & gc
   {
     "tpope/vim-commentary",
-    keys = { "gc", "gcc" }, -- Lazy load on keybind
+    event = "VeryLazy",
   },
 
   -- Surround - Work with surrounding quotes, brackets, etc.
@@ -31,44 +31,39 @@ return {
   --   yss)   - surround entire line with (parentheses)
   {
     "tpope/vim-surround",
-    event = "BufReadPost", -- Load when opening a file
+    event = "VeryLazy",
   },
 
   -- Treesitter - Better syntax highlighting
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = false,
+    version = "v0.9.3",
     build = ":TSUpdate",
     config = function()
-      local ts = require("nvim-treesitter")
-      ts.setup()
-
-      -- Install parsers
-      ts.install({
-        "typescript",
-        "tsx",
-        "javascript",
-        "lua",
-        "vim",
-        "vimdoc",
-        "html",
-        "css",
-        "json",
-        "markdown",
-        "c",
-        "cpp",
-        "rust",
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "typescript",
+          "tsx",
+          "javascript",
+          "lua",
+          "vim",
+          "vimdoc",
+          "html",
+          "css",
+          "json",
+          "markdown",
+          "c",
+          "cpp",
+          "rust",
+        },
+        auto_install = true,
+        highlight = {
+          enable = true,
+        },
+        indent = {
+          enable = true,
+        },
       })
-
-      -- Enable treesitter highlighting for all filetypes
-      vim.api.nvim_create_autocmd("FileType", {
-        callback = function()
-          pcall(vim.treesitter.start)
-        end,
-      })
-
-      -- Start highlighting for current buffer
-      pcall(vim.treesitter.start)
     end,
   },
 }
