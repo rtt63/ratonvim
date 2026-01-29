@@ -37,6 +37,8 @@ return {
   -- Treesitter - Better syntax highlighting
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    priority = 1000,
     version = "v0.9.3",
     build = ":TSUpdate",
     config = function()
