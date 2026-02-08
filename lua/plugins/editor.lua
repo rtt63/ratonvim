@@ -37,6 +37,18 @@ return {
   -- Treesitter - Better syntax highlighting
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
+    build = ":TSUpdate",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "typescript",
+          "tsx",
+          "javascript",
+          "lua",
+        },
+        highlight = { enable = true },
+      })
+    end,
   },
 }
